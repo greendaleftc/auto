@@ -3,9 +3,6 @@ package org.firstinspires.ftc.teamcode.drive.autonomous;
 import android.annotation.SuppressLint;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.acmerobotics.roadrunner.geometry.Vector2d;
-import com.acmerobotics.roadrunner.trajectory.Trajectory;
-import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -22,10 +19,9 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 import java.util.ArrayList;
-import java.util.Queue;
 
 @Autonomous(group = "drive")
-public class mogul_test extends LinearOpMode {
+public class Right_H_M_M extends LinearOpMode {
     OpenCvCamera camera;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
 
@@ -194,7 +190,6 @@ public class mogul_test extends LinearOpMode {
                 drive.setPoseEstimate(startPose);
 
                 TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
-//                        .addTemporalMarker(() -> ClawServo.setPosition(0.85))
                         .addTemporalMarker(() -> SlideMotor.setTargetPosition(4000))
                         .forward(39) // move straight forward
                         .lineToSplineHeading(new Pose2d(57, 7, Math.toRadians(45))) //moving to high post
@@ -236,7 +231,7 @@ public class mogul_test extends LinearOpMode {
                         .waitSeconds(.1)
                         .lineToSplineHeading(new Pose2d(54, -1, Math.toRadians(45)))
                         .waitSeconds(.1)
-                        .lineToSplineHeading(new Pose2d(52, 32, Math.toRadians(0))) // park in 1
+                        .lineToSplineHeading(new Pose2d(54, 28, Math.toRadians(0))) // park in 1
                         .build();
 
                 if (!isStopRequested())
@@ -249,13 +244,12 @@ public class mogul_test extends LinearOpMode {
                 drive.setPoseEstimate(startPose);
 
                 TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
-//                        .addTemporalMarker(() -> ClawServo.setPosition(0.85))
                         .addTemporalMarker(() -> SlideMotor.setTargetPosition(4000))
                         .forward(39) // move straight forward
                         .lineToSplineHeading(new Pose2d(57, 7, Math.toRadians(45))) //moving to high post
                         .UNSTABLE_addTemporalMarkerOffset(0, () -> ClawServo.setPosition(0.85)) // open claw lol
                         // Go Back for 2nd Cone
-                        .lineToSplineHeading(new Pose2d(52, -27, Math.toRadians(90))) // back up to cone stack
+                        .lineToSplineHeading(new Pose2d(54, -27, Math.toRadians(90))) // back up to cone stack
                         .UNSTABLE_addTemporalMarkerOffset(-1, () -> ArmServo.setPosition(0.68)) // rotate claw arm
                         .UNSTABLE_addTemporalMarkerOffset(-1, () -> SlideMotor.setTargetPosition(670)) // slide height lower
                         .waitSeconds(.5)
@@ -265,12 +259,12 @@ public class mogul_test extends LinearOpMode {
                         .waitSeconds(.5)
                         .UNSTABLE_addTemporalMarkerOffset(0, () -> ArmServo.setPosition(0)) // rotate claw arm to face post
                         .waitSeconds(.5)
-                        .lineToSplineHeading(new Pose2d(46, 7.5, Math.toRadians(135))) // moving back to mid post
+                        .lineToSplineHeading(new Pose2d(46.5, 6.5, Math.toRadians(135))) // moving back to mid post
                         .waitSeconds(.5)
                         .UNSTABLE_addTemporalMarkerOffset(0, () -> ClawServo.setPosition(0.85)) // open claw lol #2 cones
                         .waitSeconds(1)
                         // Go Back For 3rd Cone
-                        .lineToSplineHeading(new Pose2d(55, -29, Math.toRadians(90))) // back up to cone stack
+                        .lineToSplineHeading(new Pose2d(56, -28, Math.toRadians(90))) // back up to cone stack
                         .UNSTABLE_addTemporalMarkerOffset(-1, () -> ArmServo.setPosition(0.68)) // rotate claw arm
                         .UNSTABLE_addTemporalMarkerOffset(-1, () -> SlideMotor.setTargetPosition(600)) // slide height lower
                         .waitSeconds(.5)
@@ -280,7 +274,7 @@ public class mogul_test extends LinearOpMode {
                         .waitSeconds(.5)
                         .UNSTABLE_addTemporalMarkerOffset(0, () -> ArmServo.setPosition(0)) // rotate claw arm to face post
                         .waitSeconds(.5)
-                        .lineToSplineHeading(new Pose2d(45, 6, Math.toRadians(135))) // moving back to mid post
+                        .lineToSplineHeading(new Pose2d(47, 6.5, Math.toRadians(135))) // moving back to mid post
                         .waitSeconds(.5)
                         .UNSTABLE_addTemporalMarkerOffset(0, () -> ClawServo.setPosition(0.85)) // open claw lol #3 cones
                         .waitSeconds(1)
@@ -289,7 +283,10 @@ public class mogul_test extends LinearOpMode {
                         .waitSeconds(.5)
                         .UNSTABLE_addTemporalMarkerOffset(0, () -> SlideMotor.setTargetPosition(0))
                         .waitSeconds(.1)
-                        .lineToSplineHeading(new Pose2d(54, 0, Math.toRadians(0))) // park in 2
+                        .back(13)
+                        .waitSeconds(1)
+                        .lineToSplineHeading(new Pose2d(37, -4, Math.toRadians(0))) // park in 2
+                        .waitSeconds(.1)
                         .build();
 
                 if (!isStopRequested())
@@ -308,7 +305,7 @@ public class mogul_test extends LinearOpMode {
                         .lineToSplineHeading(new Pose2d(57, 7, Math.toRadians(45))) //moving to high post
                         .UNSTABLE_addTemporalMarkerOffset(0, () -> ClawServo.setPosition(0.85)) // open claw lol
                         // Go Back for 2nd Cone
-                        .lineToSplineHeading(new Pose2d(52, -27, Math.toRadians(90))) // back up to cone stack
+                        .lineToSplineHeading(new Pose2d(54, -27, Math.toRadians(90))) // back up to cone stack
                         .UNSTABLE_addTemporalMarkerOffset(-1, () -> ArmServo.setPosition(0.68)) // rotate claw arm
                         .UNSTABLE_addTemporalMarkerOffset(-1, () -> SlideMotor.setTargetPosition(670)) // slide height lower
                         .waitSeconds(.5)
@@ -318,12 +315,12 @@ public class mogul_test extends LinearOpMode {
                         .waitSeconds(.5)
                         .UNSTABLE_addTemporalMarkerOffset(0, () -> ArmServo.setPosition(0)) // rotate claw arm to face post
                         .waitSeconds(.5)
-                        .lineToSplineHeading(new Pose2d(46, 7.5, Math.toRadians(135))) // moving back to mid post
+                        .lineToSplineHeading(new Pose2d(46.5, 6.5, Math.toRadians(135))) // moving back to mid post
                         .waitSeconds(.5)
                         .UNSTABLE_addTemporalMarkerOffset(0, () -> ClawServo.setPosition(0.85)) // open claw lol #2 cones
                         .waitSeconds(1)
                         // Go Back For 3rd Cone
-                        .lineToSplineHeading(new Pose2d(55, -29, Math.toRadians(90))) // back up to cone stack
+                        .lineToSplineHeading(new Pose2d(56, -28, Math.toRadians(90))) // back up to cone stack
                         .UNSTABLE_addTemporalMarkerOffset(-1, () -> ArmServo.setPosition(0.68)) // rotate claw arm
                         .UNSTABLE_addTemporalMarkerOffset(-1, () -> SlideMotor.setTargetPosition(600)) // slide height lower
                         .waitSeconds(.5)
@@ -333,7 +330,7 @@ public class mogul_test extends LinearOpMode {
                         .waitSeconds(.5)
                         .UNSTABLE_addTemporalMarkerOffset(0, () -> ArmServo.setPosition(0)) // rotate claw arm to face post
                         .waitSeconds(.5)
-                        .lineToSplineHeading(new Pose2d(45, 6, Math.toRadians(135))) // moving back to mid post
+                        .lineToSplineHeading(new Pose2d(47, 6.5, Math.toRadians(135))) // moving back to mid post
                         .waitSeconds(.5)
                         .UNSTABLE_addTemporalMarkerOffset(0, () -> ClawServo.setPosition(0.85)) // open claw lol #3 cones
                         .waitSeconds(1)
@@ -342,9 +339,10 @@ public class mogul_test extends LinearOpMode {
                         .waitSeconds(.5)
                         .UNSTABLE_addTemporalMarkerOffset(0, () -> SlideMotor.setTargetPosition(0))
                         .waitSeconds(.1)
-                        .lineToSplineHeading(new Pose2d(52, 0, Math.toRadians(135)))
-                        .waitSeconds(.5)
-                        .lineToSplineHeading(new Pose2d(54, -29, Math.toRadians(0))) // park in 3
+                        .back(14)
+                        .waitSeconds(1)
+                        .lineToSplineHeading(new Pose2d(54, -27, Math.toRadians(0))) // park in 3
+                        .waitSeconds(.1)
                         .build();
 
                 if (!isStopRequested())
