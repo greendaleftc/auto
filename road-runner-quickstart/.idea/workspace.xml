@@ -13,12 +13,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cd7cff4e-9ee6-46d2-9d4f-5a05cf2f57fb" name="Changes" comment="finished roadrunner tuning for a robot">
-      <change beforePath="$PROJECT_DIR$/../FtcRobotController-android8/.gradle/7.4.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../FtcRobotController-android8/.gradle/7.4.2/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FtcRobotController-android8/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../FtcRobotController-android8/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FtcRobotController-android8/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/drive/autonomous/mogul_test.java" beforeDir="false" afterPath="$PROJECT_DIR$/../FtcRobotController-android8/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/drive/autonomous/mogul_test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.4.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4.2/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/drive/autonomous/Right_H_M_M.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/drive/autonomous/driveToSplineTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/drive/autonomous/driveToSplineTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -205,12 +205,12 @@ public class Right_H_M_M extends LinearOpMode {
                         .waitSeconds(.5)
                         .UNSTABLE_addTemporalMarkerOffset(0, () -> ArmServo.setPosition(0)) // rotate claw arm to face post
                         .waitSeconds(.5)
-                        .lineToSplineHeading(new Pose2d(46.5, 7, Math.toRadians(135))) // moving back to mid post
+                        .lineToSplineHeading(new Pose2d(47, 7, Math.toRadians(135))) // moving back to mid post
                         .waitSeconds(.5)
                         .UNSTABLE_addTemporalMarkerOffset(0, () -> ClawServo.setPosition(0.85)) // open claw lol #2 cones
                         .waitSeconds(1)
                         // Go Back For 3rd Cone
-                        .lineToSplineHeading(new Pose2d(55, -27, Math.toRadians(90))) // back up to cone stack
+                        .lineToSplineHeading(new Pose2d(54.5, -26.5, Math.toRadians(90))) // back up to cone stack
                         .UNSTABLE_addTemporalMarkerOffset(-1, () -> ArmServo.setPosition(0.68)) // rotate claw arm
                         .UNSTABLE_addTemporalMarkerOffset(-1, () -> SlideMotor.setTargetPosition(600)) // slide height lower
                         .waitSeconds(.5)
@@ -220,7 +220,7 @@ public class Right_H_M_M extends LinearOpMode {
                         .waitSeconds(.5)
                         .UNSTABLE_addTemporalMarkerOffset(0, () -> ArmServo.setPosition(0)) // rotate claw arm to face post
                         .waitSeconds(.5)
-                        .lineToSplineHeading(new Pose2d(46.5, 7, Math.toRadians(135))) // moving back to mid post
+                        .lineToSplineHeading(new Pose2d(47, 6.5, Math.toRadians(135))) // moving back to mid post second time
                         .waitSeconds(.5)
                         .UNSTABLE_addTemporalMarkerOffset(0, () -> ClawServo.setPosition(0.85)) // open claw lol #3 cones
                         .waitSeconds(1)
