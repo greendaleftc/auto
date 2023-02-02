@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
@@ -70,6 +71,7 @@ public class autonomousRight extends LinearOpMode {
         SlideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         SlideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         SlideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        SlideMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         SlideMotor.setTargetPosition(0);
         ClawServo.setPosition(0.62);
         ClawServo.setDirection(Servo.Direction.REVERSE);
