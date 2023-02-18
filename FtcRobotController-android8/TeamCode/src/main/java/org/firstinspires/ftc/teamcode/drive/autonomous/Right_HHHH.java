@@ -192,7 +192,7 @@ public class Right_HHHH extends LinearOpMode {
 
                 TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
                         .addTemporalMarker(.5, () -> SlideMotor.setTargetPosition(3900))
-                        .forward(39) // move straight forward
+                        .forward(39) // move straight forwards
                         .lineToSplineHeading(new Pose2d(57, 7, Math.toRadians(45))) //moving to high post
                         .UNSTABLE_addTemporalMarkerOffset(.1, () -> ClawServo.setPosition(0.85)) // open claw lol
                         .waitSeconds(.1)
