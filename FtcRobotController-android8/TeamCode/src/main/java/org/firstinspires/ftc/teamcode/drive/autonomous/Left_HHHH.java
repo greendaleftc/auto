@@ -52,9 +52,11 @@ public class Left_HHHH extends LinearOpMode {
         DcMotorEx SlideMotor;
         Servo ClawServo;
         Servo ArmServo;
+        Servo BlockServo;
         SlideMotor = hardwareMap.get(DcMotorEx.class, "SlideMotor");
         ClawServo = hardwareMap.get(Servo.class, "ClawServo");
         ArmServo = hardwareMap.get(Servo.class, "ArmServo");
+        BlockServo = hardwareMap.get(Servo.class, "BlockServo");
 
         telemetry.addData("Slide Pos", SlideMotor.getCurrentPosition());
         telemetry.update();
@@ -71,6 +73,7 @@ public class Left_HHHH extends LinearOpMode {
         ArmServo.setPosition(0);
         SlideMotor.setVelocity(10000);
         ClawServo.setPosition(0.60);
+        BlockServo.setPosition(0);
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
@@ -191,7 +194,8 @@ public class Left_HHHH extends LinearOpMode {
             drive.setPoseEstimate(startPose);
 
             TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
-                    .addTemporalMarker(.5, () -> SlideMotor.setTargetPosition(3900))
+                    .addTemporalMarker(0, () -> SlideMotor.setTargetPosition(3900))
+                    .addTemporalMarker(.3, () -> BlockServo.setPosition(0.85))
                     .forward(39) // move straight forward
                     .lineToSplineHeading(new Pose2d(57, -2, Math.toRadians(-45))) //moving to high post
                     .UNSTABLE_addTemporalMarkerOffset(.1, () -> ClawServo.setPosition(0.85)) // open claw lol
