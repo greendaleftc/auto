@@ -20,7 +20,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 import java.util.ArrayList;
-
+@Disabled
 @Autonomous(group = "drive")
 public class Right_HHHH_pods extends LinearOpMode {
     OpenCvCamera camera;
