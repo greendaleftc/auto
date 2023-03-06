@@ -1,70 +1,74 @@
 package org.firstinspires.ftc.teamcode.drive.opmode;
-
-import android.annotation.SuppressLint;
-import android.text.method.Touch;
-import android.transition.Slide;
-import android.widget.Button;
-
-import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
-import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
-
-
-import java.util.ArrayList;
-import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.TouchSensor;
-
-import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
-
 
 @TeleOp(group = "drive")
 public class JavaTeleOp extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
-        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+        DcMotorEx rightFront;
+        DcMotorEx rightRear;
+        DcMotorEx leftFront;
+        DcMotorEx leftRear;
+        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
+        rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
+        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
+        leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
+
+        Servo ClawServo;
+        ClawServo = hardwareMap.get(Servo.class, "ClawServo");
+
+        Servo ArmServo;
+        ArmServo = hardwareMap.get(Servo.class, "ArmServo");
+
+        Servo BlockServo;
+        BlockServo = hardwareMap.get(Servo.class, "BlockServo");
+
+        TouchSensor TouchSensor;
+        TouchSensor = hardwareMap.get(TouchSensor.class, "TouchSensor");
 
         DcMotorEx SlideMotor;
-        Servo ClawServo;
-        Servo ArmServo;
-        Servo BlockServo;
-        TouchSensor TouchSensor;
         SlideMotor = hardwareMap.get(DcMotorEx.class, "SlideMotor");
-        ClawServo = hardwareMap.get(Servo.class, "ClawServo");
-        ArmServo = hardwareMap.get(Servo.class, "ArmServo");
-        BlockServo = hardwareMap.get(Servo.class, "BlockServo");
-        TouchSensor = hardwareMap.get(TouchSensor.class, "TouchSensor");
+
         boolean low_position = false;
-        boolean touch_sensor_hit = false;
         boolean yb_position = false;
         boolean high_med_position = false;
+        int hit_count = 0;
+        double block_arm_pos_val = .82;
+        double safety_speed = 0.65;
+        float vertical;
+        float horizontal;
+        double pivot;
 
+        telemetry.addData("Slide Pos", SlideMotor.getCurrentPosition());
+        telemetry.update();
+
+        //waiting for start button press
+        waitForStart();
+
+        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         SlideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         SlideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         SlideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         SlideMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         SlideMotor.setTargetPosition(0);
-        ClawServo.setDirection(Servo.Direction.REVERSE);
         SlideMotor.setVelocity(10000);
+
+        ClawServo.setDirection(Servo.Direction.REVERSE);
+
         BlockServo.setPosition(0);
-
-        telemetry.addData("Slide Pos", SlideMotor.getCurrentPosition());
-        telemetry.update();
-
-        int hit_count = 0;
-
-        double block_arm_pos_val = .82;
-
-
-        waitForStart();
 
         while (!isStopRequested()) {
 
@@ -73,14 +77,14 @@ public class JavaTeleOp extends LinearOpMode {
 
 
 
-            drive.setWeightedDrivePower(
-                    new Pose2d(
-                            -gamepad1.left_stick_y,
-                            -gamepad1.left_stick_x,
-                            -gamepad1.right_stick_x
-
-                    )
-            );
+//            drive.setWeightedDrivePower(
+//                    new Pose2d(
+//                            -gamepad1.left_stick_y,
+//                            -gamepad1.left_stick_x,
+//                            -gamepad1.right_stick_x
+//
+//                    )
+//            );
 
                 // linear slide code
                     // Mid
@@ -225,12 +229,26 @@ public class JavaTeleOp extends LinearOpMode {
 
                         }
 
-                        drive.update();
+                vertical = gamepad1.left_stick_y;
+                horizontal = -gamepad1.left_stick_x;
+                pivot = 0.8 * -gamepad1.right_stick_x;
+                // The Y axis of a joystick ranges from -1 in its topmost position
+                // to +1 in its bottommost position. We negate this value so that
+                // the topmost position corresponds to maximum forward power.
+                rightFront.setPower((-pivot + (vertical - horizontal)) * safety_speed);
+                rightRear.setPower((-pivot + vertical + horizontal) * safety_speed);
+                // The Y axis of a joystick ranges from -1 in its topmost position
+                // to +1 in its bottommost position. We negate this value so that
+                // the topmost position corresponds to maximum forward power.
+                leftFront.setPower((pivot + vertical + horizontal) * safety_speed);
+                leftRear.setPower((pivot + (vertical - horizontal)) * safety_speed);
 
-                        Pose2d poseEstimate = drive.getPoseEstimate();
-                        telemetry.addData("x", poseEstimate.getX());
-                        telemetry.addData("y", poseEstimate.getY());
-                        telemetry.addData("heading", poseEstimate.getHeading());
+                        //drive.update();
+
+                        //Pose2d poseEstimate = drive.getPoseEstimate();
+//                        telemetry.addData("x", poseEstimate.getX());
+//                        telemetry.addData("y", poseEstimate.getY());
+//                        telemetry.addData("heading", poseEstimate.getHeading());
                         telemetry.addData("slide height", slide_height);
                         telemetry.addData("slide button pressed", TouchSensor.isPressed());
                         telemetry.addData("low position bool", low_position);
