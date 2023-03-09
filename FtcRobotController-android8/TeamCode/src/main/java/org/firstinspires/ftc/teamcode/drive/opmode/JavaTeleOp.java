@@ -1,4 +1,6 @@
 package org.firstinspires.ftc.teamcode.drive.opmode;
+import android.transition.Slide;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -195,26 +197,33 @@ public class JavaTeleOp extends LinearOpMode {
                             ((DcMotorEx) SlideMotor).setVelocity(20000);
                             yb_position = true;
                         }
-                        }
-                        //open claw
-                        if (gamepad1.right_trigger == 0) {
-                            ClawServo.setPosition(0.85);
-                        }
-                        //close claw
-                        if (gamepad1.right_trigger == 1) {
-                            ClawServo.setPosition(0.63);
-                        }
-
-                        //Emergency zeroize slide
-//                if (gamepad1.back) {
-//                    while (!TouchSensor.isPressed()){
-//                        SlideMotor.setPower(-.5);
-////                        SlideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-////                        SlideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-////                        SlideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-////                        SlideMotor.setTargetPosition(0);
-//                    break;}
-//                }
+                }
+                //open claw
+                if (gamepad1.right_trigger == 0) {
+                    ClawServo.setPosition(0.85);
+                    if (gamepad1.x) {
+                        SlideMotor.setTargetPosition(SlideMotor.getCurrentPosition() + 100);
+                    }
+                    else if (gamepad1.a) {
+                        SlideMotor.setTargetPosition(SlideMotor.getCurrentPosition() - 100);
+                    }
+                }
+                //close claw
+                if (gamepad1.right_trigger == 1) {
+                    ClawServo.setPosition(0.63);
+                    if (gamepad1.x) {
+                        SlideMotor.setTargetPosition(SlideMotor.getCurrentPosition() + 100);
+                    }
+                    else if (gamepad1.a) {
+                        SlideMotor.setTargetPosition(SlideMotor.getCurrentPosition() - 100);
+                    }
+                }
+                else if (gamepad1.x) {
+                    SlideMotor.setTargetPosition(SlideMotor.getCurrentPosition() + 100);
+                }
+                else if (gamepad1.a) {
+                    SlideMotor.setTargetPosition(SlideMotor.getCurrentPosition() - 100);
+                }
 
 
                         //At zero
@@ -249,7 +258,7 @@ public class JavaTeleOp extends LinearOpMode {
 //                        telemetry.addData("x", poseEstimate.getX());
 //                        telemetry.addData("y", poseEstimate.getY());
 //                        telemetry.addData("heading", poseEstimate.getHeading());
-                        telemetry.addData("slide height", slide_height);
+                        telemetry.addData("slide height", SlideMotor.getCurrentPosition());
                         telemetry.addData("slide button pressed", TouchSensor.isPressed());
                         telemetry.addData("low position bool", low_position);
                         telemetry.addData("Slide Pos", SlideMotor.getCurrentPosition());
