@@ -252,12 +252,7 @@ public class JavaTeleOp extends LinearOpMode {
                 leftFront.setPower((pivot + vertical + horizontal) * safety_speed);
                 leftRear.setPower((pivot + (vertical - horizontal)) * safety_speed);
 
-                        //drive.update();
 
-                        //Pose2d poseEstimate = drive.getPoseEstimate();
-//                        telemetry.addData("x", poseEstimate.getX());
-//                        telemetry.addData("y", poseEstimate.getY());
-//                        telemetry.addData("heading", poseEstimate.getHeading());
                         telemetry.addData("slide height", SlideMotor.getCurrentPosition());
                         telemetry.addData("slide button pressed", TouchSensor.isPressed());
                         telemetry.addData("low position bool", low_position);
